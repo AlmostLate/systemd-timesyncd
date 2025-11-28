@@ -764,3 +764,392 @@ if __name__ == "__main__":
     print("\n" + "="*60)
     print("  TESTING COMPLETE")
     print("="*60)
+
+# ==============================================================================
+# 7. ВИЗУАЛИЗАЦИЯ РЕЗУЛЬТАТОВ
+# ==============================================================================
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+def plot_results(all_results: dict, save_path='method_comparison.png'):
+    """Визуализирует результаты сравнения методов"""
+    
+    # Настройка стиля
+    sns.set_style("whitegrid")
+    plt.rcParams['figure.figsize'] = (16, 12)
+    plt.rcParams['font.size'] = 10
+    
+    fig, axes = plt.subplots(2, 3, figsize=(18, 12))
+    fig.suptitle('Comparison of Inclusion Search Methods', fontsize=16, fontweight='bold')
+    
+    methods = list(all_results.keys())
+    colors = plt.cm.Set3(np.linspace(0, 1, len(methods)))
+    
+    # =========================================================================
+    # 1. Recall Comparison
+    # =========================================================================
+    ax = axes[0, 0]
+    recall_metrics = ['recall@5', 'recall@10', 'recall@20']
+    x = np.arange(len(methods))
+    width = 0.25
+    
+    for i, metric in enumerate(recall_metrics):
+        values = [all_results[m][metric]['mean'] * 100 for m in methods]
+        stds = [all_results[m][metric]['std'] * 100 for m in methods]
+        ax.bar(x + i*width, values, width, label=metric.replace('recall@', 'R@'), 
+               yerr=stds, capsize=3, alpha=0.8)
+    
+    ax.set_ylabel('Recall (%)', fontweight='bold')
+    ax.set_title('Recall Comparison', fontweight='bold')
+    ax.set_xticks(x + width)
+    ax.set_xticklabels(methods, rotation=45, ha='right', fontsize=9)
+    ax.legend()
+    ax.grid(axis='y', alpha=0.3)
+    ax.set_ylim([0, 105])
+    
+    # =========================================================================
+    # 2. Query Time Comparison (log scale)
+    # =========================================================================
+    ax = axes[0, 1]
+    times = [all_results[m]['query_times']['mean'] * 1000 for m in methods]
+    stds = [all_results[m]['query_times']['std'] * 1000 for m in methods]
+    
+    bars = ax.bar(range(len(methods)), times, yerr=stds, capsize=5, 
+                  color=colors, alpha=0.8, edgecolor='black', linewidth=1.5)
+    
+    # Добавляем значения на столбцы
+    for i, (bar, time) in enumerate(zip(bars, times)):
+        height = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width()/2., height,
+                f'{time:.1f}ms',
+                ha='center', va='bottom', fontsize=8, fontweight='bold')
+    
+    ax.set_ylabel('Query Time (ms)', fontweight='bold')
+    ax.set_title('Query Time Comparison (lower is better)', fontweight='bold')
+    ax.set_xticks(range(len(methods)))
+    ax.set_xticklabels(methods, rotation=45, ha='right', fontsize=9)
+    ax.set_yscale('log')
+    ax.grid(axis='y', alpha=0.3, which='both')
+    
+    # =========================================================================
+    # 3. NDCG@20 Comparison
+    # =========================================================================
+    ax = axes[0, 2]
+    ndcg_values = [all_results[m]['ndcg@20']['mean'] * 100 for m in methods]
+    ndcg_stds = [all_results[m]['ndcg@20']['std'] * 100 for m in methods]
+    
+    bars = ax.bar(range(len(methods)), ndcg_values, yerr=ndcg_stds, capsize=5,
+                  color=colors, alpha=0.8, edgecolor='black', linewidth=1.5)
+    
+    # Добавляем значения
+    for bar, ndcg in zip(bars, ndcg_values):
+        height = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width()/2., height,
+                f'{ndcg:.1f}%',
+                ha='center', va='bottom', fontsize=8, fontweight='bold')
+    
+    ax.set_ylabel('NDCG@20 (%)', fontweight='bold')
+    ax.set_title('NDCG@20 Comparison (Ranking Quality)', fontweight='bold')
+    ax.set_xticks(range(len(methods)))
+    ax.set_xticklabels(methods, rotation=45, ha='right', fontsize=9)
+    ax.grid(axis='y', alpha=0.3)
+    ax.set_ylim([0, 105])
+    
+    # =========================================================================
+    # 4. Precision vs Recall Tradeoff
+    # =========================================================================
+    ax = axes[1, 0]
+    precisions = [all_results[m]['precision@20']['mean'] * 100 for m in methods]
+    recalls = [all_results[m]['recall@20']['mean'] * 100 for m in methods]
+    
+    for i, (method, color) in enumerate(zip(methods, colors)):
+        ax.scatter(recalls[i], precisions[i], s=200, color=color, 
+                  alpha=0.7, edgecolor='black', linewidth=2, zorder=3)
+        
+        # Аннотация с небольшим смещением
+        offset = 2 if i % 2 == 0 else -2
+        ax.annotate(method, (recalls[i], precisions[i]), 
+                   xytext=(5, offset), textcoords='offset points', 
+                   fontsize=8, fontweight='bold',
+                   bbox=dict(boxstyle='round,pad=0.3', facecolor=color, alpha=0.3))
+    
+    ax.set_xlabel('Recall@20 (%)', fontweight='bold')
+    ax.set_ylabel('Precision@20 (%)', fontweight='bold')
+    ax.set_title('Precision vs Recall Tradeoff', fontweight='bold')
+    ax.grid(alpha=0.3)
+    ax.set_xlim([min(recalls)-5, 105])
+    ax.set_ylim([min(precisions)-5, 105])
+    
+    # Диагональная линия (идеальный случай)
+    ax.plot([0, 100], [0, 100], 'k--', alpha=0.3, linewidth=1)
+    
+    # =========================================================================
+    # 5. Speed vs Quality Tradeoff
+    # =========================================================================
+    ax = axes[1, 1]
+    times_log = [all_results[m]['query_times']['mean'] * 1000 for m in methods]
+    recalls_quality = [all_results[m]['recall@20']['mean'] * 100 for m in methods]
+    
+    for i, (method, color) in enumerate(zip(methods, colors)):
+        ax.scatter(times_log[i], recalls_quality[i], s=200, color=color,
+                  alpha=0.7, edgecolor='black', linewidth=2, zorder=3)
+        
+        # Аннотация
+        offset = 2 if i % 2 == 0 else -2
+        ax.annotate(method, (times_log[i], recalls_quality[i]),
+                   xytext=(5, offset), textcoords='offset points',
+                   fontsize=8, fontweight='bold',
+                   bbox=dict(boxstyle='round,pad=0.3', facecolor=color, alpha=0.3))
+    
+    ax.set_xlabel('Query Time (ms, log scale)', fontweight='bold')
+    ax.set_ylabel('Recall@20 (%)', fontweight='bold')
+    ax.set_title('Speed vs Quality Tradeoff', fontweight='bold')
+    ax.set_xscale('log')
+    ax.grid(alpha=0.3, which='both')
+    
+    # Отмечаем "идеальную" зону (быстро и точно)
+    ax.axhline(y=95, color='green', linestyle='--', alpha=0.3, linewidth=2)
+    ax.axvline(x=10, color='green', linestyle='--', alpha=0.3, linewidth=2)
+    ax.fill_between([0.1, 10], 95, 100, alpha=0.1, color='green', label='Ideal zone')
+    ax.legend(loc='lower left')
+    
+    # =========================================================================
+    # 6. All Metrics Comparison (Radar/Spider Chart)
+    # =========================================================================
+    ax = axes[1, 2]
+    
+    # Нормализуем метрики для радара (все от 0 до 100)
+    metrics_for_radar = ['recall@20', 'precision@20', 'ndcg@20']
+    
+    # Количество метрик
+    num_metrics = len(metrics_for_radar)
+    angles = np.linspace(0, 2 * np.pi, num_metrics, endpoint=False).tolist()
+    angles += angles[:1]  # Замыкаем круг
+    
+    # Рисуем для каждого метода
+    for i, (method, color) in enumerate(zip(methods, colors)):
+        values = [all_results[method][m]['mean'] * 100 for m in metrics_for_radar]
+        values += values[:1]  # Замыкаем круг
+        
+        ax.plot(angles, values, 'o-', linewidth=2, label=method, color=color, alpha=0.7)
+        ax.fill(angles, values, alpha=0.15, color=color)
+    
+    # Настройка осей
+    ax.set_xticks(angles[:-1])
+    ax.set_xticklabels([m.upper().replace('_', ' ') for m in metrics_for_radar], 
+                       fontsize=10, fontweight='bold')
+    ax.set_ylim(0, 100)
+    ax.set_yticks([20, 40, 60, 80, 100])
+    ax.set_yticklabels(['20%', '40%', '60%', '80%', '100%'])
+    ax.grid(True, alpha=0.3)
+    ax.set_title('Overall Performance (Radar Chart)', fontweight='bold', pad=20)
+    
+    # Легенда вне графика
+    ax.legend(loc='upper left', bbox_to_anchor=(1.05, 1), fontsize=8)
+    
+    # =========================================================================
+    # Сохраняем
+    # =========================================================================
+    plt.tight_layout(rect=[0, 0.03, 1, 0.97])
+    plt.savefig(save_path, dpi=150, bbox_inches='tight')
+    print(f"\n✓ Plot saved as '{save_path}'")
+    plt.show()
+
+
+def plot_size_analysis(methods, records, save_path='size_analysis.png'):
+    """Визуализирует зависимость качества от размера запроса"""
+    
+    print("\nGenerating size analysis plot...")
+    
+    records_sets = {rid: set(nums) for rid, nums in records.items()}
+    size_bins = [(1, 5), (6, 10), (11, 20), (21, 50)]
+    
+    # Собираем данные
+    results_by_size = {method_name: {'bins': [], 'recalls': [], 'times': []} 
+                       for method_name in methods.keys()}
+    
+    for min_size, max_size in size_bins:
+        queries_in_bin = [
+            rid for rid, nums in records.items()
+            if min_size <= len(nums) <= max_size
+        ]
+        
+        if len(queries_in_bin) < 10:
+            continue
+        
+        np.random.seed(42)
+        sample_queries = np.random.choice(
+            queries_in_bin, 
+            size=min(30, len(queries_in_bin)), 
+            replace=False
+        )
+        
+        bin_label = f"{min_size}-{max_size}"
+        
+        for method_name, method in methods.items():
+            recalls = []
+            times = []
+            
+            for query_id in sample_queries:
+                gt = compute_ground_truth(records_sets, query_id, k=20)
+                if len(gt) == 0:
+                    continue
+                
+                gt_ids = set(r[0] for r in gt)
+                
+                start = time.time()
+                pred = method.find_top_inclusions(query_id, k=20)
+                query_time = time.time() - start
+                
+                pred_ids = set(r[0] for r in pred[:20])
+                
+                if len(gt_ids) > 0:
+                    recall = len(pred_ids & gt_ids) / len(gt_ids)
+                    recalls.append(recall)
+                    times.append(query_time)
+            
+            if len(recalls) > 0:
+                results_by_size[method_name]['bins'].append(bin_label)
+                results_by_size[method_name]['recalls'].append(np.mean(recalls) * 100)
+                results_by_size[method_name]['times'].append(np.mean(times) * 1000)
+    
+    # Визуализация
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+    fig.suptitle('Performance by Query Size', fontsize=14, fontweight='bold')
+    
+    colors = plt.cm.Set3(np.linspace(0, 1, len(methods)))
+    
+    # График 1: Recall по размеру
+    ax = axes[0]
+    for (method_name, data), color in zip(results_by_size.items(), colors):
+        if len(data['bins']) > 0:
+            ax.plot(data['bins'], data['recalls'], 'o-', linewidth=2, 
+                   markersize=8, label=method_name, color=color, alpha=0.7)
+    
+    ax.set_xlabel('Query Size Range', fontweight='bold')
+    ax.set_ylabel('Recall@20 (%)', fontweight='bold')
+    ax.set_title('Recall@20 by Query Size', fontweight='bold')
+    ax.legend(fontsize=8)
+    ax.grid(alpha=0.3)
+    ax.set_ylim([0, 105])
+    
+    # График 2: Time по размеру
+    ax = axes[1]
+    for (method_name, data), color in zip(results_by_size.items(), colors):
+        if len(data['bins']) > 0:
+            ax.plot(data['bins'], data['times'], 'o-', linewidth=2,
+                   markersize=8, label=method_name, color=color, alpha=0.7)
+    
+    ax.set_xlabel('Query Size Range', fontweight='bold')
+    ax.set_ylabel('Query Time (ms)', fontweight='bold')
+    ax.set_title('Query Time by Query Size', fontweight='bold')
+    ax.legend(fontsize=8)
+    ax.grid(alpha=0.3)
+    ax.set_yscale('log')
+    
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=150, bbox_inches='tight')
+    print(f"✓ Size analysis plot saved as '{save_path}'")
+    plt.show()
+
+
+def plot_detailed_comparison_table(all_results, save_path='comparison_table.png'):
+    """Создаёт детальную таблицу сравнения"""
+    
+    print("\nGenerating detailed comparison table...")
+    
+    methods = list(all_results.keys())
+    
+    # Подготовка данных для таблицы
+    table_data = []
+    metrics_display = [
+        ('recall@5', 'R@5'),
+        ('recall@10', 'R@10'),
+        ('recall@20', 'R@20'),
+        ('precision@20', 'P@20'),
+        ('ndcg@20', 'NDCG@20'),
+        ('query_times', 'Time')
+    ]
+    
+    for method in methods:
+        row = [method]
+        for metric, _ in metrics_display:
+            mean = all_results[method][metric]['mean']
+            std = all_results[method][metric]['std']
+            
+            if metric == 'query_times':
+                row.append(f"{mean*1000:.2f}±{std*1000:.2f}ms")
+            else:
+                row.append(f"{mean*100:.1f}±{std*100:.1f}%")
+        
+        table_data.append(row)
+    
+    # Создаём фигуру
+    fig, ax = plt.subplots(figsize=(14, 6))
+    ax.axis('tight')
+    ax.axis('off')
+    
+    # Заголовки
+    headers = ['Method'] + [display for _, display in metrics_display]
+    
+    # Создаём таблицу
+    table = ax.table(cellText=table_data, colLabels=headers,
+                    cellLoc='center', loc='center',
+                    colWidths=[0.25] + [0.125]*6)
+    
+    # Стилизация
+    table.auto_set_font_size(False)
+    table.set_fontsize(9)
+    table.scale(1, 2)
+    
+    # Раскраска заголовков
+    for i in range(len(headers)):
+        cell = table[(0, i)]
+        cell.set_facecolor('#4CAF50')
+        cell.set_text_props(weight='bold', color='white')
+    
+    # Раскраска строк
+    colors = plt.cm.Set3(np.linspace(0, 1, len(methods)))
+    for i in range(len(methods)):
+        for j in range(len(headers)):
+            cell = table[(i+1, j)]
+            cell.set_facecolor(colors[i])
+            cell.set_alpha(0.3)
+    
+    plt.title('Detailed Performance Comparison', fontsize=14, fontweight='bold', pad=20)
+    plt.savefig(save_path, dpi=150, bbox_inches='tight')
+    print(f"✓ Comparison table saved as '{save_path}'")
+    plt.show()
+
+
+# ==============================================================================
+# 8. ОБНОВЛЁННЫЙ MAIN
+# ==============================================================================
+
+if __name__ == "__main__":
+    # Запускаем полное тестирование
+    all_results, records, methods = run_comprehensive_test(
+        num_records=10000,
+        num_queries=100
+    )
+    
+    # Дополнительный анализ по размеру
+    analyze_by_query_size(methods, records, all_results)
+    
+    # Визуализации
+    print("\n" + "="*60)
+    print("  GENERATING VISUALIZATIONS")
+    print("="*60)
+    
+    plot_results(all_results, save_path='method_comparison.png')
+    plot_size_analysis(methods, records, save_path='size_analysis.png')
+    plot_detailed_comparison_table(all_results, save_path='comparison_table.png')
+    
+    print("\n" + "="*60)
+    print("  TESTING COMPLETE")
+    print("="*60)
+    print("\nGenerated files:")
+    print("  - method_comparison.png")
+    print("  - size_analysis.png")
+    print("  - comparison_table.png")
