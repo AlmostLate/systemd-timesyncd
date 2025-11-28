@@ -1,0 +1,28 @@
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: psb_clickhouse
+    ports:
+      - "8123:8123" # HTTP
+      - "9000:9000" # native tcp
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - ./clickhouse/ch_data:/var/lib/clickhouse
+      - ./clickhouse/ch_logs:/var/log/clickhouse-server
+      # for the dataset loading
+      - ./clickhouse/Dataset_case_1:/var/lib/clickhouse/user_files/dataset
+      # manage authz
+      - ./clickhouse/ch_auth:/etc/clickhouse-server/users.d
+      - ./clickhouse/ch_config:/etc/clickhouse-server/config.d
+    cap_add:
+      - SYS_NICE
+      - NET_ADMIN
+      - IPC_LOCK
+    restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,98 @@
+swagger: "2.0"
+info:
+  title: PSB Recommendation Engine API
+  version: 1.0.0
+  description: API for retrieving personalized banking product recommendations.
+
+produces:
+  - application/json
+
+paths:
+  /api/v1/recommendations:
+    get:
+      summary: Get personalized product recommendations
+      description: Returns a list of banner contents for a specific user.
+      operationId: getRecommendations
+      parameters:
+        - name: user_id
+          in: query
+          description: Unique identifier of the user.
+          required: true
+          type: string
+        - name: limit
+          in: query
+          description: Maximum number of recommendations to return.
+          required: false
+          type: integer
+      responses:
+        "200":
+          description: Successful response with a list of offers.
+          schema:
+            $ref: "#/definitions/RecommendationResponse"
+        "400":
+          description: Invalid parameters (e.g., missing user_id).
+          schema:
+            $ref: "#/definitions/Error"
+        "404":
+          description: User not found in the database.
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: Internal server error.
+          schema:
+            $ref: "#/definitions/Error"
+
+definitions:
+  RecommendationResponse:
+    type: object
+    properties:
+      user_id:
+        type: string
+        description: The user ID for whom the recommendations were generated.
+        x-omitempty: false
+      offers:
+        type: array
+        description: List of recommended offers (banners).
+        x-omitempty: false
+        items:
+          $ref: "#/definitions/BannerOffer"
+
+  BannerOffer:
+    type: object
+    properties:
+      product_id:
+        type: string
+        description: Internal technical ID of the product (for tracking clicks).
+        example: "card_premium_123"
+        x-omitempty: false
+      title:
+        type: string
+        description: Headline text for the banner.
+        example: "Кредитная карта 'Двойной кэшбэк'"
+        x-omitempty: false
+      description:
+        type: string
+        description: Marketing subtitle or short description.
+        example: "До 10% на все категории в первый месяц."
+        x-omitempty: false
+      icon_url:
+        type: string
+        format: uri
+        description: URL to the product icon or banner image asset.
+        example: "https://assets.example.com/icons/credit_card_v2.png"
+        x-omitempty: false
+      category:
+        type: string
+        description: High-level product category for UI grouping/coloring.
+        example: "cards"
+        x-omitempty: false
+
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 400
+      message:
+        type: string
+        example: "user_id is required"
