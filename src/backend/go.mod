@@ -11,6 +11,7 @@ require (
 	github.com/go-openapi/swag v0.25.4
 	github.com/go-openapi/validate v0.25.1
 	github.com/jessevdk/go-flags v1.6.1
+	github.com/rs/cors v1.11.1
 	golang.org/x/net v0.47.0
 )
 
