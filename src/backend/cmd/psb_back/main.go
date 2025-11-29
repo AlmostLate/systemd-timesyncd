@@ -8,6 +8,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/ClickHouse/clickhouse-go/v2"
 	"github.com/go-openapi/loads"
 	flags "github.com/jessevdk/go-flags"
 	"github.com/rs/cors"
@@ -20,6 +21,7 @@ import (
 
 type options struct {
 	CORSAllowedOrigins []string `long:"cors-allowed-origins" description:"A list of allowed origins for CORS" required:"false"`
+	ClickHouseDSN      string   `long:"clickhouse-dsn" description:"dsn for the main repo"`
 }
 
 const (
@@ -27,7 +29,9 @@ const (
 )
 
 func main() {
-	var opts options
+	var (
+		opts options
+	)
 
 	swaggerSpec, err := loads.Embedded(restapi.SwaggerJSON, restapi.FlatSwaggerJSON)
 	if err != nil {
@@ -36,16 +40,28 @@ func main() {
 
 	api := operations.NewPSBRecommendationEngineAPIAPI(swaggerSpec)
 
-	app := application.NewApplication()
-
-	httpHandler := ports.NewHTTPServer(app)
-
-	api.GetRecommendationsHandler = operations.GetRecommendationsHandlerFunc(httpHandler.Handle)
-
 	server := restapi.NewServer(api)
 	defer server.Shutdown()
 
 	parseFlags(server, api, &opts)
+
+	dsn, err := clickhouse.ParseDSN(opts.ClickHouseDSN)
+	if err != nil {
+		log.Printf("please specify a correct clickhouse dsn: %s", err)
+		return
+	}
+
+	clickHouse := clickhouse.OpenDB(dsn)
+
+	err = clickHouse.Ping()
+	if err != nil {
+		log.Printf("could not create clickhouse connection: %s", err)
+		return
+	}
+
+	app := application.NewApplication(clickHouse)
+	httpHandler := ports.NewHTTPServer(app)
+	api.GetRecommendationsHandler = operations.GetRecommendationsHandlerFunc(httpHandler.Handle)
 
 	server.ConfigureAPI()
 
