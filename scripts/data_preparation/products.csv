@@ -1,0 +1,160 @@
+product_id,product_type,product_name,description
+1,credit,military_credit,loans for defense industry workers and military personnel
+2,credit,anypurpose_credit,a loan for any purpose with the option to repay all interest
+3,credit,refinancing_credit,loan refinancing
+4,credit,turbodengi_credit,express loan for fast money
+5,card,tvoicashback_card,debit card with 25% cashback
+6,card,svoi_card,electronic ID card for combat veterans of special military operation in Russia
+7,card,citizen_card,multifunctional tool based on the Mir payment system serving as a payment instrument and a carrier of several documents and integrates social and other services
+8,card,CSKA_card,PFC CSKA Debit Club Card which gives increased cashback for football fans
+9,card,onlyforward_card,increased cashback for those who actively care about their health
+10,card,credit_card,credit card 180 days interest-free with a long grace period
+11,card,pension_card,PSB debit pension card
+12,card,veterans_card,card for retired law enforcement officers and combat veterans
+13,card,tvoiplus_card,"Your Plus" Salary Card Get a card and earn even more
+14,card,tvoicashback_sticker_card,Payment sticker for the "Your Cashback" card Pay for purchases with your phone with one touch
+15,card,strong_people_card,"Strong People. Special Purpose Tariff" Salary Card for military personnel and law enforcement officers
+16,card,individual_salary_card,Personalized Salary Card Manage your money more efficiently
+17,card,salarypro_card,salary card with privileges for salary clients
+18,deposit,bet_on_future_deposit,"Bet on the Future" Deposit for participants in the PSB NPF long-term savings program
+19,deposit,precios_deposit,Buy precious metals and open a deposit with special terms
+20,deposit,strong_rate_deposit,Place new funds and earn more
+21,deposit,my_income_deposit,Deposits from a bank with maximum reliability Up to 1.4 million rubles are insured by the state
+22,deposit,stable_income_deposit,Guaranteed income every month
+23,deposit,kopilka_deposit,Open and earn interest every month
+24,deposit,my_opportunities_deposit,You can top up your deposit or withdraw money at any time
+25,deposit,yuan_deposit,With unlimited extension
+26,deposit,social_deposit,For bank clients who receive social support from the state
+27,savings_account,accent_on_interest_savings_account,Pay for purchases with your PSB card and receive additional benefits and Unlimited interest accrual
+28,savings_account,for_spares_savings_account,Interest accrual on the minimum balance will help avoid impulse purchases
+29,savings_account,keeper_savings_account,Choose your own rules for your savings account
+30,premium,orange_club_premium,Enhanced comfort and advanced financial management and Travel insurance and complimentary business lounges and Increased cashback and discounts from partners and Financial consultations and secure services
+31,premium,private_banking_premium,Personal concierge family-friendly service and exclusive events and Exceptional confidentiality and Privileges from payment systems and special deposit terms and Investment portfolio management
+32,investments,tools_and_services_for_investing,Earn money on the stock market without experience with investments from 10 rubles using ready-made solutions or on your own
+33,cashback,multinel_cashback,10% cashback for all online purchases made on the website Multinel is a Russian brand of home appliances
+34,cashback,readyskin_cashback,10% cashback for all online purchases made on the website ReadySkin — health and wellness products
+35,cashback,rokodil_cashback,10% cashback for all online purchases made on the Rokodil website — construction power tools
+36,cashback,galaxystore_cashback,3% cashback For all online purchases made on the website Galaxystore is an authorized Samsung brand store
+37,cashback,beeline_cashback,4% cashback and all online purchases made on the website Beeline is a mobile operator providing services throughout the Russian Federation
+38,cashback,restore_cashback,3% cashback for all online purchases made on the website of a chain of premium electronics stores selling Apple and other global brands with a 20-year history
+39,cashback,krona_cashback,5.5% cashback for any purchases in the Krona online store of kitchen appliances
+40,cashback,megaphone_cashback,3% cashback for purchasing selected products in the Megafon online store of equipment and accessories
+41,health_discount,optimist_optika_discount,10% cashback for your first purchase made at Optimist Optika optical stores — a nationwide network of optical stores offering professional vision diagnostics and a wide selection of glasses and lenses throughout Russia
+42,health_discount,healthru_discount,30% discount for the first payment for tests ordered through the Zdorovie.ru app a free app that helps you stay healthy
+43,health_discount,youtalk_discount,30% discount For your first payment with an online psychologist YouTalk — individual and family online consultations with verified psychologists
+44,health_discount,ochkarik_discount,3% cashback on any purchases at Ochkarik retail and online stores
+45,health_discount,medsi_discount,cashback up to 5% at a network of private clinics for children and adults for your first payment this month
+46,travel_cashback,ostrovok_cashback,7% cashback for hotel bookings and payments on the joint website of Ostrovok! and PSB Bank
+47,travel_cashback,level_travel_cashback,Cashback of up to 10% on purchases on the joint website of PSB Bank and Level Travel — an online service for searching and purchasing tours and booking hotels from leading Russian tour operators
+48,travel_cashback,travelata_ru_cashback,3% Cashback When you pay for tours on the joint website of Travelata and PSB Bank. Travelata is the largest online travel store in Russia
+49,travel_cashback,otello_cashback,10% cashback For your first booking using the link Othello — a service for booking hotels resorts and apartments at competitive prices
+50,travel_cashback,aviakassa_cashback,Cashback up to 4% for all purchases on the joint website of PSB Bank and Aviakassa - a reliable assistant in organizing trips to any point in the world even the most remote ones
+51,travel_cashback,one_two_trip_cashback,Cashback up to 7.5% on purchases on the joint website of PSB Bank and One Two Trip – a convenient profitable and reliable online service for organizing travel
+52,transport_cashback,daocam_cashback,10% cashback on all online purchases made on the Daocam website – a manufacturer of automotive electronics
+53,transport_cashback,roadgid_cashback,10% cashback on all online purchases made on the Roadgid website — car DVRs modern car technology
+54,transport_cashback,gruzovichkof_cashback,5% cashback when paying for transport and logistics services on the website or in the mobile app
+55,transport_cashback,ankar_cashback,7% cashback on all purchases at the Ankar auto repair center chain which specializes in repairing cars of all makes and models and offering a full range of services
+56,beauty_cashback,loksitan_cashback,4% cashback on your first purchase on the website and in L'Occitane retail stores - natural French cosmetics and perfumes from Provence
+57,beauty_cashback,yves_rocher_cashback,15% cashback for your first online purchase from 1000₽. Yves Rocher is a French cosmetics company specializing in plant-based cosmetics and perfumery
+58,beauty_discount,rive_gauche_discount,10% discount on purchases from 5000₽. Rive Gauche is one of the largest federal premium segment chains in the beauty industry
+59,house_discount,tsvet_divanov_discount,5% discount on all products using promo code SPB5
+60,transport_cashback,gruzovichkof_cashback,5% cashback when paying for transport and logistics services on the website or in the mobile app
+61,house_cashback,bestmebel_cashback,4% cashback for all purchases in the online store. BestMebel is a manufacturer of quality and affordable furniture for home and office
+62,services,pro32_cashback,10% cashback for your first purchase of home antivirus in the PRO32 online store. Pro32 is a provider of effective IT solutions for businesses and government structures and home users
+63,services,ndflka_cashback,10% cashback for your first purchase on the website of the online service for tax refund and payment
+64,gifts_cashback,my_gift_card_cashback,Up to 15% cashback for all purchases on the website. Giving is easy - online store of gift certificates for friends and loved ones
+65,entertainment_discount,litres_cashback,15% cashback for your first purchase on the website. LitRes is the largest service for e-books and audiobooks with a huge catalog for every taste
+66,services,yandex_plus_service,Yandex Plus subscription and/or option for 0₽. Yandex Plus is a multi-subscription for 4 people that provides access to entertainment services: Yandex Music and Kinopoisk and Yandex Books. Plus subscribers also get additional features in Yandex services. With the "Your Pluses in S7 Airlines" option you get S7 Airlines miles and the same number of Plus points for orders in Yandex services as well as other bonuses for profitable trips
+67,food_delivery_cashback,chibbis_cashback,25% cashback for your first online order on the Chibbis website or app. Chibbis is a food delivery aggregator in 200 cities across Russia
+68,education_discount,russian_management_school_discount,20% discount on all business school courses using promo code PSB_20
+69,kids_cashback,bubble_gum_cashback,10% cashback for purchases in the Bubble Gum online store of children's goods
+70,clothes_cashback,kari_cashback,10% cashback for your first purchase in KARI retail stores. KARI is an international retail chain of shoe and accessory stores for adults and children
+71,gifts_cashback,flowwow_discount,15% discount on your first order. Flowwow is a marketplace for flowers and gifts and another language of love
+72,entertainment_discount,panorama360_discount,10% discount using promo code PSB for purchasing a standard entrance ticket. The PANORAMA360 observation deck is located in the Moscow-City business center on the 89th floor of the Federation Tower East
+73,entertainment_discount,sun_of_moscow_discount,10% discount using promo code PSB10 for purchasing a ticket for the Ferris wheel
+74,food_discount,yandex_lavka_discount,Up to 40% discount on your first order. Yandex Lavka is an express delivery service for groceries and ready-made and hot food from 15 minutes
+75,mortgage,family_mortgage,Family mortgage program with PSC 21.514-31.537% and rate from 5.9% and down payment from 20.01%
+76,mortgage,state_program_new_subjects,State program for new regions with PSC 21.186-31.537% and rate 2% and down payment from 10.01%
+77,mortgage,military_mortgage_new_subjects,Military mortgage for new regions with PSC 2.315-2.603% and rate 2% and amount up to 6 million rubles
+78,mortgage,apartment_pledge_credit,Credit with apartment as collateral with PSC 27.832-39.809% and rate from 25.7% and amount up to 30 million rubles
+79,mortgage,military_refinancing,Military mortgage refinancing with PSC 6.001-21.683% and rate from 6.0% and amount up to 5100000 rubles
+80,mortgage,secondary_housing,Secondary housing mortgage with PSC 20.217-45.837% and rate from 19.49% and down payment from 20.01%
+81,mortgage,new_building,New construction mortgage with PSC 19.993-45.837% and rate from 19.49% and down payment from 20.01%
+82,mortgage,family_military_mortgage,Family military mortgage with PSC 6.001-6.184% and rate 6.0% and amount up to 5125000 rubles
+83,mortgage,military_mortgage_standard,Standard military mortgage with PSC 19.001-20.741% and rate from 19.0% and amount up to 1955000 rubles
+84,mortgage,mortgage_refinancing,Mortgage refinancing with PSC 22.428-39.809% and rate from 19.69% and amount up to 20 million rubles
+85,mortgage,far_east_arctic_mortgage,Far Eastern and Arctic mortgage with PSC 21.019-31.537% and rate 2% and down payment from 20.01%
+86,mortgage,state_support_mortgage,State-supported mortgage programs for various categories of borrowers
+87,insurance_and_service_products,be_healthy_insurance,Comprehensive health examination and treatment for the whole family for 15000₽ with 24/7 telemedicine access and leading clinics like Mother and Child and Medsi and Scandinavia
+88,insurance_and_service_products,my_territory_insurance,Property insurance for 10000₽ with 24/7 protection and can be arranged in 5 minutes at any PSB office without property inspection
+89,insurance_and_service_products,primary_housing_inspection,Primary housing acceptance inspection with expert lawyers and engineers with their equipment in partnership with Legal Solutions LLC and online arrangement from home or any PSB office
+90,insurance_and_service_products,life_savings_insurance,Life savings insurance with 13% tax refund on each payment and legal privileges where money cannot be confiscated or divided in divorce and investment income protecting against inflation
+91,insurance_and_service_products,consumer_loan_borrower_insurance,Consumer loan borrower insurance that reduces loan rate with 24/7 worldwide support and convenient arrangement together with the loan
+92,insurance_and_service_products,mortgage_borrower_insurance,Mortgage borrower insurance that reduces mortgage rate with no restrictions and you can choose insurance company yourself and arrangement together with the loan
+93,insurance_and_service_products,multi_lawyer_service,Multi-lawyer service from 5000₽ where service value in certificate is much higher than its cost and can be arranged in 5 minutes at any PSB office
+94,insurance_and_service_products,deposit_protection_insurance,Deposit protection insurance up to 400000₽ compensation for lost interest in case of insurance event with flexible terms for any new or existing PSB deposits and coverage for you and your family
+95,insurance_and_service_products,travel_insurance,Travel insurance with 50000₽ coverage amount and policy cost 5000₽ with reliable partner PSB Insurance
+96,insurance_and_service_products,real_estate_check,Real estate verification service with installment payment option and profitable without unexpected risks and online consultation by phone video or personal account
+97,insurance_and_service_products,universal_protection,Universal protection with money on your cards insured against any fraudster actions and compensation if card is lost or money is illegally written off or cash taken at ATM and subscription payment for any term
+98,insurance_and_service_products,home_cashback,Home cashback service where service value in certificate is much higher than its cost and reliable in partnership with Legal Solutions LLC and online arrangement from home or any PSB office
+99,insurance_and_service_products,osago_insurance,OSAGO insurance available for all Russian territory including new regions and reliable with leading insurance companies and online connection in 3 minutes
+100,insurance_and_service_products,job_loss_insurance,Job loss insurance with up to 5 months financial support and reliable in partnership with PSB Insurance LLC and online arrangement from home or any PSB office
+101,insurance_and_service_products,just_in_case_insurance,Just in case accident insurance with up to 2.9 million₽ payout for risks and can be arranged in 5 minutes at any PSB office and reliable in partnership with PSB Insurance
+102,insurance_and_service_products,road_assistance,Road assistance service from 5000₽ where service value in certificate is much higher than its cost and 24/7 technical service on roads across Russia and reliable in partnership with Legal Solutions LLC
+103,insurance_and_service_products,comprehensive_financial_protection,Comprehensive financial protection programs for various life situations and insurance needs
+104,mortgage_from_devs,zhk_ostrov_residential,ZK Ostrov residential complex with individual discount offer
+105,mortgage_from_devs,zhk_rumyantsevo_park_residential,ZK Rumyantsevo-Park residential complex with 1% discount
+106,mortgage_from_devs,zhk_sobytie_residential,ZK Sobytie residential complex with individual discount offer
+107,mortgage_from_devs,dolina_setun_residential,Dolina Setun residential complex with individual discount offer
+108,mortgage_from_devs,zhk_zarechie_park_residential,ZK Zarechye Park residential complex with 2% discount
+109,mortgage_from_devs,zhk_businovsky_park_residential,ZK Businovsky Park residential complex with special offer
+110,mortgage_from_devs,zhk_kipel_residential,ZK Kipel residential complex with 1% discount
+111,mortgage_from_devs,zhk_leningradka_58_residential,ZK Leningradka 58 residential complex with 5% discount
+112,mortgage_from_devs,zhk_nevsky_residential,ZK Nevsky residential complex with special offer
+113,mortgage_from_devs,zhk_losinoostrovsky_park_residential,ZK Losinoostrovsky Park residential complex with special offer
+114,mortgage_from_devs,zhk_kvartal_domashny_residential,ZK Kvartal Domashny residential complex with 2% discount
+115,mortgage_from_devs,zhk_preobrazhenskaya_ploshchad_residential,ZK Preobrazhenskaya Ploshchad residential complex with individual discount
+116,mortgage_from_devs,zhk_dialog_residential,ZK Dialog residential complex with individual discount
+117,mortgage_from_devs,zhk_lyublinsky_park_residential,ZK Lyublinsky Park residential complex with special offer
+118,mortgage_from_devs,zhk_krasnokazarmennaya_15_residential,ZK Krasnokazarmennaya 15 residential complex with special offer
+119,mortgage_from_devs,zhk_sky_house_residential,ZK Sky House residential complex with individual terms from developer
+120,mortgage_from_devs,zhk_headliner_residential,ZK Headliner residential complex with 1% discount
+121,mortgage_from_devs,zhk_capital_towers_residential,ZK Capital Towers residential complex with individual terms from developer
+122,mortgage_from_devs,zhk_red7_residential,ZK RED7 residential complex with individual discount
+123,mortgage_from_devs,zhk_dom_na_zorge_residential,ZK Dom na Zorge residential complex with individual discount
+124,mortgage_from_devs,zhk_kronshtadtsky_14_residential,ZK Kronshtadtsky 14 residential complex with special offer
+125,mortgage_from_devs,zhk_molzhaninovo_residential,ZK Molzhaninovo residential complex with 2% discount
+126,mortgage_from_devs,zhk_dmitrovsky_park_residential,ZK Dmitrovsky Park residential complex with special offer
+127,mortgage_from_devs,zhk_kronshtadtsky_9_residential,ZK Kronshtadtsky 9 residential complex with special offer
+128,mortgage_from_devs,zhk_volokolamskoe_24_residential,ZK Volokolamskoe 24 residential complex with special offer
+129,mortgage_from_devs,zhk_troparevo_park_residential,ZK Troparevo Park residential complex with 2% discount
+130,mortgage_from_devs,zhk_rublevsky_kvartal_residential,ZK Rublevsky Kvartal residential complex with 2% discount
+131,mortgage_from_devs,zhk_vereyskaya_41_residential,ZK Vereyskaya 41 residential complex with 2% discount
+132,mortgage_from_devs,zhk_kvartal_aviatorov_residential,ZK Kvartal Aviatorov residential complex with 2% discount
+133,mortgage_from_devs,zhk_matveevsky_park_residential,ZK Matveevsky Park residential complex with special offer
+134,mortgage_from_devs,zhk_desnarechye_residential,ZK Desnarechye residential complex with individual discount
+135,mortgage_from_devs,zhk_kvartal_zapadny_residential,ZK Kvartal Zapadny residential complex with 2% discount
+136,mortgage_from_devs,zhk_podolskie_kvartaly_residential,ZK Podolskie Kvartaly residential complex with 2% discount
+137,mortgage_from_devs,zhk_alkimovo_residential,ZK Alkimovo residential complex with 2% discount
+138,mortgage_from_devs,zhk_kvartal_maryino_residential,ZK Kvartal Maryino residential complex with 2% discount
+139,mortgage_from_devs,zhk_volzhsky_park_residential,ZK Volzhsky Park residential complex with special offer
+140,mortgage_from_devs,zhk_oranzh_park_residential,ZK Oranzh Park residential complex with special offer
+141,mortgage_from_devs,zhk_simvol_residential,ZK Simvol residential complex with individual discount
+142,mortgage_from_devs,zhk_1_yuzhny_residential,ZK 1st Yuzhny residential complex with 2% discount
+143,mortgage_from_devs,zhk_kavkazsky_bulvar_51_residential,ZK Kavkazsky Bulvar 51 residential complex with special offer
+144,mortgage_from_devs,zhk_wave_residential,ZK Wave residential complex with 7% discount
+145,mortgage_from_devs,zhk_crystal_residential,ZK Crystal residential complex with special offer
+146,mortgage_from_devs,zhk_kolskaya_8_residential,ZK Kolskaya 8 residential complex with special offer
+147,mortgage_from_devs,zhk_ilove_residential,ZK ILOVE residential complex with 1% discount
+148,mortgage_from_devs,zhk_zilart_residential,ZK Zilart residential complex with 7% discount
+149,mortgage_from_devs,zhk_novodanilovskaya_8_residential,ZK Novodanilovskaya 8 residential complex with 2% discount
+150,mortgage_from_devs,zhk_pyatnitskie_luga_residential,ZK Pyatnitskie Luga residential complex with 2% discount
+151,mortgage_from_devs,zhk_mitinsky_les_residential,ZK Mitinsky Les residential complex with special offer
+152,mortgage_from_devs,zhk_vrubelya_4_residential,ZK Vrubelya 4 residential complex with individual discount
+153,mortgage_from_devs,zhk_wellton_towers_residential,ZK Wellton Towers residential complex with special offer
+154,mortgage_from_devs,zhk_zapadny_port_residential,ZK Zapadny Port residential complex with special offer
+155,mortgage_from_devs,zhk_will_towers_residential,ZK Will Towers residential complex with individual discount
+156,mortgage_from_devs,zhk_luchi_residential,ZK Luchi residential complex with 3% discount
+157,mortgage_from_devs,zhk_west_garden_residential,ZK WestGarden residential complex with individual discount
+158,mortgage_from_devs,zhk_vesterdam_residential,ZK Westerdam residential complex with individual discount
+159,mortgage_from_devs,zhk_main_street_residential,ZK MainStreet residential complex with individual discount
