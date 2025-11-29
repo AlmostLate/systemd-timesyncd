@@ -126,7 +126,7 @@ services:
   # --- OFFER WORKERS ---
   worker:
     build:
-      context: ./services/worker
+      context: ../src/offerworker
     deploy:
       mode: replicated
       replicas: 4
