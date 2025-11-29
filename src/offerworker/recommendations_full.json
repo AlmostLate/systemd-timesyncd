@@ -1,0 +1,374 @@
+[
+  {
+    "user_id": 12345,
+    "error": null,
+    "recommended_products": [
+      {
+        "product_id": "5",
+        "product_type": "card",
+        "product_name": "tvoicashback_card",
+        "description": "debit card with 25% cashback"
+      },
+      {
+        "product_id": "36",
+        "product_type": "cashback",
+        "product_name": "galaxystore_cashback",
+        "description": "3% cashback For all online purchases made on the website Galaxystore is an authorized Samsung brand store"
+      },
+      {
+        "product_id": "38",
+        "product_type": "cashback",
+        "product_name": "restore_cashback",
+        "description": "3% cashback for all online purchases made on the website of a chain of premium electronics stores selling Apple and other global brands with a 20-year history"
+      },
+      {
+        "product_id": "70",
+        "product_type": "clothes_cashback",
+        "product_name": "kari_cashback",
+        "description": "10% cashback for your first purchase in KARI retail stores. KARI is an international retail chain of shoe and accessory stores for adults and children"
+      },
+      {
+        "product_id": "67",
+        "product_type": "food_delivery_cashback",
+        "product_name": "chibbis_cashback",
+        "description": "25% cashback for your first online order on the Chibbis website or app. Chibbis is a food delivery aggregator in 200 cities across Russia"
+      },
+      {
+        "product_id": "74",
+        "product_type": "food_discount",
+        "product_name": "yandex_lavka_discount",
+        "description": "Up to 40% discount on your first order. Yandex Lavka is an express delivery service for groceries and ready-made and hot food from 15 minutes"
+      },
+      {
+        "product_id": "34",
+        "product_type": "cashback",
+        "product_name": "readyskin_cashback",
+        "description": "10% cashback for all online purchases made on the website ReadySkin — health and wellness products"
+      },
+      {
+        "product_id": "62",
+        "product_type": "services",
+        "product_name": "pro32_cashback",
+        "description": "10% cashback for your first purchase of home antivirus in the PRO32 online store. Pro32 is a provider of effective IT solutions for businesses and government structures and home users"
+      },
+      {
+        "product_id": "63",
+        "product_type": "services",
+        "product_name": "ndflka_cashback",
+        "description": "10% cashback for your first purchase on the website of the online service for tax refund and payment"
+      },
+      {
+        "product_id": "66",
+        "product_type": "services",
+        "product_name": "yandex_plus_service",
+        "description": "Yandex Plus subscription and/or option for 0₽. Yandex Plus is a multi-subscription for 4 people that provides access to entertainment services: Yandex Music and Kinopoisk and Yandex Books. Plus subscribers also get additional features in Yandex services. With the \"Your Pluses in S7 Airlines\" option you get S7 Airlines miles and the same number of Plus points for orders in Yandex services as well as other bonuses for profitable trips"
+      },
+      {
+        "product_id": "65",
+        "product_type": "entertainment_discount",
+        "product_name": "litres_cashback",
+        "description": "15% cashback for your first purchase on the website. LitRes is the largest service for e-books and audiobooks with a huge catalog for every taste"
+      },
+      {
+        "product_id": "72",
+        "product_type": "entertainment_discount",
+        "product_name": "panorama360_discount",
+        "description": "10% discount using promo code PSB for purchasing a standard entrance ticket. The PANORAMA360 observation deck is located in the Moscow-City business center on the 89th floor of the Federation Tower East"
+      },
+      {
+        "product_id": "73",
+        "product_type": "entertainment_discount",
+        "product_name": "sun_of_moscow_discount",
+        "description": "10% discount using promo code PSB10 for purchasing a ticket for the Ferris wheel"
+      },
+      {
+        "product_id": "27",
+        "product_type": "savings_account",
+        "product_name": "accent_on_interest_savings_account",
+        "description": "Pay for purchases with your PSB card and receive additional benefits and Unlimited interest accrual"
+      },
+      {
+        "product_id": "28",
+        "product_type": "savings_account",
+        "product_name": "for_spares_savings_account",
+        "description": "Interest accrual on the minimum balance will help avoid impulse purchases"
+      },
+      {
+        "product_id": "23",
+        "product_type": "deposit",
+        "product_name": "kopilka_deposit",
+        "description": "Open and earn interest every month"
+      },
+      {
+        "product_id": "24",
+        "product_type": "deposit",
+        "product_name": "my_opportunities_deposit",
+        "description": "You can top up your deposit or withdraw money at any time"
+      },
+      {
+        "product_id": "20",
+        "product_type": "deposit",
+        "product_name": "strong_rate_deposit",
+        "description": "Place new funds and earn more"
+      },
+      {
+        "product_id": "2",
+        "product_type": "credit",
+        "product_name": "anypurpose_credit",
+        "description": "a loan for any purpose with the option to repay all interest"
+      },
+      {
+        "product_id": "4",
+        "product_type": "credit",
+        "product_name": "turbodengi_credit",
+        "description": "express loan for fast money"
+      },
+      {
+        "product_id": "10",
+        "product_type": "card",
+        "product_name": "credit_card",
+        "description": "credit card 180 days interest-free with a long grace period"
+      },
+      {
+        "product_id": "87",
+        "product_type": "insurance_and_service_products",
+        "product_name": "be_healthy_insurance",
+        "description": "Comprehensive health examination and treatment for the whole family for 15000₽ with 24/7 telemedicine access and leading clinics like Mother and Child and Medsi and Scandinavia"
+      },
+      {
+        "product_id": "97",
+        "product_type": "insurance_and_service_products",
+        "product_name": "universal_protection",
+        "description": "Universal protection with money on your cards insured against any fraudster actions and compensation if card is lost or money is illegally written off or cash taken at ATM and subscription payment for any term"
+      },
+      {
+        "product_id": "100",
+        "product_type": "insurance_and_service_products",
+        "product_name": "job_loss_insurance",
+        "description": "Job loss insurance with up to 5 months financial support and reliable in partnership with PSB Insurance LLC and online arrangement from home or any PSB office"
+      },
+      {
+        "product_id": "101",
+        "product_type": "insurance_and_service_products",
+        "product_name": "just_in_case_insurance",
+        "description": "Just in case accident insurance with up to 2.9 million₽ payout for risks and can be arranged in 5 minutes at any PSB office and reliable in partnership with PSB Insurance"
+      },
+      {
+        "product_id": "43",
+        "product_type": "health_discount",
+        "product_name": "youtalk_discount",
+        "description": "30% discount For your first payment with an online psychologist YouTalk — individual and family online consultations with verified psychologists"
+      },
+      {
+        "product_id": "45",
+        "product_type": "health_discount",
+        "product_name": "medsi_discount",
+        "description": "cashback up to 5% at a network of private clinics for children and adults for your first payment this month"
+      },
+      {
+        "product_id": "41",
+        "product_type": "health_discount",
+        "product_name": "optimist_optika_discount",
+        "description": "10% cashback for your first purchase made at Optimist Optika optical stores — a nationwide network of optical stores offering professional vision diagnostics and a wide selection of glasses and lenses throughout Russia"
+      },
+      {
+        "product_id": "44",
+        "product_type": "health_discount",
+        "product_name": "ochkarik_discount",
+        "description": "3% cashback on any purchases at Ochkarik retail and online stores"
+      },
+      {
+        "product_id": "42",
+        "product_type": "health_discount",
+        "product_name": "healthru_discount",
+        "description": "30% discount for the first payment for tests ordered through the Zdorovie.ru app a free app that helps you stay healthy"
+      }
+    ]
+  },
+  {
+    "user_id": 67890,
+    "error": null,
+    "recommended_products": [
+      {
+        "product_id": "5",
+        "product_type": "card",
+        "product_name": "tvoicashback_card",
+        "description": "debit card with 25% cashback"
+      },
+      {
+        "product_id": "33",
+        "product_type": "cashback",
+        "product_name": "multinel_cashback",
+        "description": "10% cashback for all online purchases made on the website Multinel is a Russian brand of home appliances"
+      },
+      {
+        "product_id": "39",
+        "product_type": "cashback",
+        "product_name": "krona_cashback",
+        "description": "5.5% cashback for any purchases in the Krona online store of kitchen appliances"
+      },
+      {
+        "product_id": "34",
+        "product_type": "cashback",
+        "product_name": "readyskin_cashback",
+        "description": "10% cashback for all online purchases made on the website ReadySkin — health and wellness products"
+      },
+      {
+        "product_id": "74",
+        "product_type": "food_discount",
+        "product_name": "yandex_lavka_discount",
+        "description": "Up to 40% discount on your first order. Yandex Lavka is an express delivery service for groceries and ready-made and hot food from 15 minutes"
+      },
+      {
+        "product_id": "67",
+        "product_type": "food_delivery_cashback",
+        "product_name": "chibbis_cashback",
+        "description": "25% cashback for your first online order on the Chibbis website or app. Chibbis is a food delivery aggregator in 200 cities across Russia"
+      },
+      {
+        "product_id": "27",
+        "product_type": "savings_account",
+        "product_name": "accent_on_interest_savings_account",
+        "description": "Pay for purchases with your PSB card and receive additional benefits and Unlimited interest accrual"
+      },
+      {
+        "product_id": "28",
+        "product_type": "savings_account",
+        "product_name": "for_spares_savings_account",
+        "description": "Interest accrual on the minimum balance will help avoid impulse purchases"
+      },
+      {
+        "product_id": "23",
+        "product_type": "deposit",
+        "product_name": "kopilka_deposit",
+        "description": "Open and earn interest every month"
+      },
+      {
+        "product_id": "24",
+        "product_type": "deposit",
+        "product_name": "my_opportunities_deposit",
+        "description": "You can top up your deposit or withdraw money at any time"
+      },
+      {
+        "product_id": "2",
+        "product_type": "credit",
+        "product_name": "anypurpose_credit",
+        "description": "a loan for any purpose with the option to repay all interest"
+      },
+      {
+        "product_id": "4",
+        "product_type": "credit",
+        "product_name": "turbodengi_credit",
+        "description": "express loan for fast money"
+      },
+      {
+        "product_id": "10",
+        "product_type": "card",
+        "product_name": "credit_card",
+        "description": "credit card 180 days interest-free with a long grace period"
+      },
+      {
+        "product_id": "66",
+        "product_type": "services",
+        "product_name": "yandex_plus_service",
+        "description": "Yandex Plus subscription and/or option for 0₽. Yandex Plus is a multi-subscription for 4 people that provides access to entertainment services: Yandex Music and Kinopoisk and Yandex Books. Plus subscribers also get additional features in Yandex services. With the \"Your Pluses in S7 Airlines\" option you get S7 Airlines miles and the same number of Plus points for orders in Yandex services as well as other bonuses for profitable trips"
+      },
+      {
+        "product_id": "62",
+        "product_type": "services",
+        "product_name": "pro32_cashback",
+        "description": "10% cashback for your first purchase of home antivirus in the PRO32 online store. Pro32 is a provider of effective IT solutions for businesses and government structures and home users"
+      },
+      {
+        "product_id": "63",
+        "product_type": "services",
+        "product_name": "ndflka_cashback",
+        "description": "10% cashback for your first purchase on the website of the online service for tax refund and payment"
+      },
+      {
+        "product_id": "69",
+        "product_type": "kids_cashback",
+        "product_name": "bubble_gum_cashback",
+        "description": "10% cashback for purchases in the Bubble Gum online store of children's goods"
+      },
+      {
+        "product_id": "70",
+        "product_type": "clothes_cashback",
+        "product_name": "kari_cashback",
+        "description": "10% cashback for your first purchase in KARI retail stores. KARI is an international retail chain of shoe and accessory stores for adults and children"
+      },
+      {
+        "product_id": "UNKNOWN",
+        "product_type": "UNKNOWN",
+        "product_name": "litsres_cashback",
+        "description": ""
+      },
+      {
+        "product_id": "72",
+        "product_type": "entertainment_discount",
+        "product_name": "panorama360_discount",
+        "description": "10% discount using promo code PSB for purchasing a standard entrance ticket. The PANORAMA360 observation deck is located in the Moscow-City business center on the 89th floor of the Federation Tower East"
+      },
+      {
+        "product_id": "73",
+        "product_type": "entertainment_discount",
+        "product_name": "sun_of_moscow_discount",
+        "description": "10% discount using promo code PSB10 for purchasing a ticket for the Ferris wheel"
+      },
+      {
+        "product_id": "71",
+        "product_type": "gifts_cashback",
+        "product_name": "flowwow_discount",
+        "description": "15% discount on your first order. Flowwow is a marketplace for flowers and gifts and another language of love"
+      },
+      {
+        "product_id": "64",
+        "product_type": "gifts_cashback",
+        "product_name": "my_gift_card_cashback",
+        "description": "Up to 15% cashback for all purchases on the website. Giving is easy - online store of gift certificates for friends and loved ones"
+      },
+      {
+        "product_id": "68",
+        "product_type": "education_discount",
+        "product_name": "russian_management_school_discount",
+        "description": "20% discount on all business school courses using promo code PSB_20"
+      },
+      {
+        "product_id": "37",
+        "product_type": "cashback",
+        "product_name": "beeline_cashback",
+        "description": "4% cashback and all online purchases made on the website Beeline is a mobile operator providing services throughout the Russian Federation"
+      },
+      {
+        "product_id": "36",
+        "product_type": "cashback",
+        "product_name": "galaxystore_cashback",
+        "description": "3% cashback For all online purchases made on the website Galaxystore is an authorized Samsung brand store"
+      },
+      {
+        "product_id": "38",
+        "product_type": "cashback",
+        "product_name": "restore_cashback",
+        "description": "3% cashback for all online purchases made on the website of a chain of premium electronics stores selling Apple and other global brands with a 20-year history"
+      },
+      {
+        "product_id": "53",
+        "product_type": "transport_cashback",
+        "product_name": "roadgid_cashback",
+        "description": "10% cashback on all online purchases made on the Roadgid website — car DVRs modern car technology"
+      },
+      {
+        "product_id": "52",
+        "product_type": "transport_cashback",
+        "product_name": "daocam_cashback",
+        "description": "10% cashback on all online purchases made on the Daocam website – a manufacturer of automotive electronics"
+      },
+      {
+        "product_id": "55",
+        "product_type": "transport_cashback",
+        "product_name": "ankar_cashback",
+        "description": "7% cashback on all purchases at the Ankar auto repair center chain which specializes in repairing cars of all makes and models and offering a full range of services"
+      }
+    ]
+  }
+]

@@ -44,7 +44,7 @@ def generate_synthetic_data(num_records=10000, max_number=200, seed=41):
     
     return records
 
-records = generate_synthetic_data(num_records=3_000_000)
+records = generate_synthetic_data(num_records=1_000_000)
 print(list(records.items())[:10])
 norm_faiss = NormalizedFAISS(200)
 norm_faiss.build(records)
