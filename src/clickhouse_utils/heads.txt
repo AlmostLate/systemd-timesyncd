@@ -1,0 +1,79 @@
+Dataset_case_1/users.pq
+
+   user_id  socdem_cluster  region
+0        0            19.0    21.0
+1        1             7.0     2.0
+2        3            19.0    59.0
+3        7             0.0     2.0
+4        8            20.0    63.0
+
+
+Dataset_case_1/brands.pq
+
+   brand_id                                          embedding
+0         0                                               None
+1         1  [-0.15127362, 0.04042323, -0.13742839, 0.04612...
+2         2                                               None
+3         3                                               None
+4         4                                               None
+
+
+Dataset_case_1/retail/items.pq
+
+columns 'item_id', 'brand_id', 'category', 'subcategory', 'price', 'embedding'
+     item_id  brand_id  ...     price                                          embedding
+0     fmcg_0     25989  ... -5.135633  [-0.06752661, -0.006418907, 0.049758468, 0.016...
+1     fmcg_1     65693  ... -4.855653  [-0.043162137, 0.030578252, 0.02412171, 0.1259...
+2    fmcg_10     65693  ... -4.406018  [-0.13557312, 0.049446248, -0.018282967, 0.025...
+3   fmcg_100    146468  ...       NaN  [-0.04450701, -0.0075577386, -0.0038848673, 0....
+4  fmcg_1000     37799  ... -2.067505  [-0.018125597, 0.010014438, 0.024989938, 0.070...
+
+
+Dataset_case_1/retail/events/01071.pq
+
+        timestamp   user_id       item_id subdomain    action_type       os
+0  92534400020517  51696271   fmcg_121370   catalog           view  android
+1  92534400022315  44566772   fmcg_619523   catalog           view  android
+2  92534400042875  44885268  fmcg_1129430   catalog           view  android
+3  92534400043621  65945978    fmcg_18985     other          order    other
+4  92534400095891    412485    fmcg_24984    search  added_to_cart  android
+
+
+Dataset_case_1/payments/events/01006.pq
+
+        timestamp   user_id  brand_id     price  transaction_hash
+0  86918400011469  15869035       NaN  3.884773  b9c1dd9b4f16b5d0
+1  86918400012771  12390904  217775.0 -2.397010  0be582114e0d1e0f
+2  86918400014563  84381491       NaN  0.563018  554a68d1e885a2c6
+3  86918400016534  24935723       NaN -0.600059  0ea8da6524790f4b
+4  86918400016843  79521831       NaN -3.160699  c67c41fc5bfd1934
+
+
+Dataset_case_1/payments/receipts/01003.pq
+
+        timestamp   user_id  brand_id approximate_item_id  count     price  transaction_hash
+0  86659200004670  85686259  215985.0       nfmcg_2281653    1.0 -3.019469  5b00c613cb74eca1
+1  86659200007303  33429496   98805.0         fmcg_282683    1.0 -4.666615  f5f7f228ac6acdc9
+2  86659200007303  54320613       NaN      nfmcg_26558932    1.0 -1.873453  0f67fd0c34620e82
+3  86659200007303  62481142       NaN      nfmcg_16635415    1.0 -3.776661  55cc577396e77d0e
+4  86659200008430  65365384       NaN        fmcg_1137670    1.0 -4.862489  8e4bfe98064d761f
+
+
+Dataset_case_1/marketplace/events/01079.pq
+
+        timestamp   user_id         item_id subdomain action_type       os
+0  93225600021634  89357862  nfmcg_26554278     other        view  android
+1  93225600044145  50693893  nfmcg_23935354     other        view  android
+2  93225600045668  29958087  nfmcg_10175067       u2i        view  android
+3  93225600050782  19882898  nfmcg_26281589       u2i        view  android
+4  93225600149006  44611250   nfmcg_8131129   catalog        view  android
+
+
+Dataset_case_1/marketplace/items.pq
+
+      item_id  brand_id category subcategory     price                                          embedding
+0     nfmcg_0    140560     None        None  0.523088  [-0.08727753, 0.041597955, -0.06043782, 0.0216...
+1     nfmcg_1     44857     None        None  0.506161  [-0.10772408, 0.09538543, -0.02721425, 0.06375...
+2    nfmcg_10    140560     None        None  3.199356  [-0.11682344, 0.06304548, -0.010072736, 0.0001...
+3   nfmcg_100    140560     None        None  2.915451  [-0.10373832, 0.093893886, -0.043308966, 0.067...
+4  nfmcg_1000    140560     None        None  1.554078  [-0.053824067, 0.031533614, -0.03386609, 0.084...

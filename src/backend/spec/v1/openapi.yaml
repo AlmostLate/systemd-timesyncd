@@ -75,12 +75,6 @@ definitions:
         description: Marketing subtitle or short description.
         example: "До 10% на все категории в первый месяц."
         x-omitempty: false
-      icon_url:
-        type: string
-        format: uri
-        description: URL to the product icon or banner image asset.
-        example: "https://assets.example.com/icons/credit_card_v2.png"
-        x-omitempty: false
       category:
         type: string
         description: High-level product category for UI grouping/coloring.

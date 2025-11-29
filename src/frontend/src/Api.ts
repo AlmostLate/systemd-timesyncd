@@ -34,12 +34,6 @@ export interface BannerOffer {
    */
   description: string;
   /**
-   * URL to the product icon or banner image asset.
-   * @format uri
-   * @example "https://assets.example.com/icons/credit_card_v2.png"
-   */
-  icon_url: string;
-  /**
    * High-level product category for UI grouping/coloring.
    * @example "cards"
    */
