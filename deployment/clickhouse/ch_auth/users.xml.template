@@ -1,0 +1,27 @@
+<clickhouse>
+    <users>
+        <!-- 1. protect default -->
+        <default>
+            <no_password remove="1" />
+            <password remove="1" />
+            <password_sha256_hex> ... </password_sha256_hex>
+            <networks>
+                <ip>0.0.0.0/0</ip>
+                <ip>::/0</ip>
+            </networks>
+            <access_management>1</access_management>
+        </default>
+
+        <!-- 2. app user -->
+        <psb_app>
+            <password_sha256_hex> ... </password_sha256_hex>
+            <networks>
+                <ip>0.0.0.0/0</ip>
+                <ip>::/0</ip>
+            </networks>
+            <profile>default</profile>
+            <quota>default</quota>
+            <access_management>1</access_management>
+        </psb_app>
+    </users>
+</clickhouse>
