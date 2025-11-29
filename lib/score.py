@@ -14,14 +14,6 @@ class User:
     
     used_offers: list[UsedOffer]
 
-
-
-@dataclass
-class LeadUser:
-    uid: int
-    socdem_cluster: float
-    region: float
-
 @dataclass
 class Offer:
     offer_id: int

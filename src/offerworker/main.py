@@ -4,6 +4,7 @@ import logging
 import requests
 from typing import List, Tuple, Protocol, Dict, Any
 import clickhouse_connect
+from lib.score import User, UsedOffer
 
 # --- CONFIGURATION ---
 COORDINATOR_URL = os.getenv("COORDINATOR_URL", "http://coordinator:8000")
@@ -39,6 +40,58 @@ class InferenceModel(Protocol):
         """
         ...
 
+RECENT_TIMESTAMP = 123
+class HistoricalModel:
+    """
+    Protocol defining how the worker interacts with the ML library.
+    Implement this interface in your actual library later.
+    """
+    def __init__(self, ch_client):
+        pass
+    def load_resources(self) -> None:
+        """Load FAISS indices, models, etc."""
+        ...
+
+    def process_batch(
+        self, user_rows: List[Tuple]
+    ) -> List[Tuple[int, int, float]]:
+        """
+        Input: List of rows from ClickHouse (users table).
+        Output: List of tuples (user_id, offer_id, score).
+        """
+        """Establish ClickHouse connection with retry logic."""
+        ch_client = None
+        while not ch_client:
+            try:
+                ch_client = clickhouse_connect.get_client(
+                    host=CH_HOST, port=CH_PORT
+                )
+                # Verify connection
+                ch_client.query("SELECT 1")
+                logger.info(f"Connected to ClickHouse at {CH_HOST}:{CH_PORT}")
+            except Exception as e:
+                logger.error(
+                    f"Failed to connect to ClickHouse: {e}. Retrying in {RETRY_DELAY}s..."
+                )
+                time.sleep(RETRY_DELAY)
+        
+        # WHERE timestamp >= {RECENT_TIMESTAMP} - 30 * 24 * 3600 * 1000000 and timestamp <= {RECENT_TIMESTAMP}
+        query = f"""  
+        SELECT user_id, socdem_cluster, region
+        FROM users AS u
+        INNER JOIN (SELECT user_id, count() as cnt
+            FROM payments
+            GROUP BY user_id
+            HAVING cnt > 15 -- Высокоактивные пользователи
+        ORDER BY 2 desc
+        LIMIT 500) AS active_user ON u.user_id = active_user.user_id 
+        """
+        active_users_rows = self.ch_client.query(query).result_rows
+        for active_user_row in active_users_rows:
+            lead_user_id = User(int(active_user_row[0]), float(active_user_row[1]), float(active_user_row[2]), [])
+        
+        for user_row in user_rows:
+            user = User(int(user_row[0]), float(user_row[1]),  float(user_row[2]), [])
 
 class MockMLService:
     def __init__(self):
@@ -115,7 +168,7 @@ class BatchWorker:
     def fetch_user_data(self, start_id: int, end_id: int) -> List[Tuple]:
         """Fetch raw user data from ClickHouse."""
         query = f"""
-            SELECT user_id, age, gender, income 
+            SELECT user_id, socdem_cluster, region 
             FROM users 
             WHERE user_id >= {start_id} AND user_id < {end_id}
         """
