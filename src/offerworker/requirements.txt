@@ -1,2 +1,4 @@
 requests
 clickhouse-connect
+openai
+tqdm
