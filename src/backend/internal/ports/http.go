@@ -2,7 +2,6 @@ package ports
 
 import (
 	"github.com/go-openapi/runtime/middleware"
-	"github.com/go-openapi/strfmt"
 
 	"github.com/AlmostLate/systemd-timesyncd/src/backend/generated/models"
 	"github.com/AlmostLate/systemd-timesyncd/src/backend/generated/restapi/operations"
@@ -39,7 +38,6 @@ func (h *HTTPServer) Handle(params operations.GetRecommendationsParams) middlewa
 			Title:       o.GetTitle(),
 			Description: o.GetDescription(),
 			Category:    o.GetCategory(),
-			IconURL:     strfmt.URI(o.GetIcon()),
 		}
 		payloadOffers = append(payloadOffers, mappedOffer)
 	}

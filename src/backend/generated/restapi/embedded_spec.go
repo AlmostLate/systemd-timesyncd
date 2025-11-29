@@ -93,13 +93,6 @@ func init() {
           "x-omitempty": false,
           "example": "До 10% на все категории в первый месяц."
         },
-        "icon_url": {
-          "description": "URL to the product icon or banner image asset.",
-          "type": "string",
-          "format": "uri",
-          "x-omitempty": false,
-          "example": "https://assets.example.com/icons/credit_card_v2.png"
-        },
         "product_id": {
           "description": "Internal technical ID of the product (for tracking clicks).",
           "type": "string",
@@ -222,13 +215,6 @@ func init() {
           "type": "string",
           "x-omitempty": false,
           "example": "До 10% на все категории в первый месяц."
-        },
-        "icon_url": {
-          "description": "URL to the product icon or banner image asset.",
-          "type": "string",
-          "format": "uri",
-          "x-omitempty": false,
-          "example": "https://assets.example.com/icons/credit_card_v2.png"
         },
         "product_id": {
           "description": "Internal technical ID of the product (for tracking clicks).",

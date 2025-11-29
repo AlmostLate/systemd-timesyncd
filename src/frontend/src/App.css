@@ -1,10 +1,11 @@
 :root {
-  --primary-color: #f26126; /* PSB Orange-like color */
+  --primary-color: #f26126;
   --primary-hover: #d14d19;
   --bg-color: #f5f7fa;
   --card-bg: #ffffff;
   --text-main: #2c3e50;
   --text-secondary: #7f8c8d;
+  --border-color: #e0e0e0;
 }
 
 body {
@@ -16,42 +17,33 @@ body {
 }
 
 .app-container {
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 2rem;
-  min-height: 100vh;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .header h1 {
   margin: 0;
-  font-size: 2rem;
-  color: #333;
-}
-
-.header p {
-  margin: 0.5rem 0 0;
-  color: var(--text-secondary);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-main);
 }
 
 /* Control Panel */
 .control-panel {
   background: var(--card-bg);
   padding: 1.5rem;
-  border-radius: 12px;
+  border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  display: flex;
-  gap: 1rem;
-  align-items: flex-end;
   margin-bottom: 2rem;
 }
 
 .input-group {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -63,85 +55,48 @@ body {
   color: var(--text-secondary);
 }
 
-.input-group input {
+.input-group select {
   padding: 0.8rem 1rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
   font-size: 1rem;
+  background-color: #fff;
   transition: border-color 0.2s;
 }
 
-.input-group input:focus {
+.input-group select:focus {
   outline: none;
   border-color: var(--primary-color);
 }
 
-button {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 0.8rem 2rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.2s;
-  height: 46px; /* Match input height */
-}
-
-button:hover:not(:disabled) {
-  background-color: var(--primary-hover);
-}
-
-button:disabled {
-  background-color: #bdc3c7;
+.input-group select:disabled {
+  background-color: #f8f8f8;
   cursor: not-allowed;
 }
 
-/* Offers Grid */
+/* Results Area */
+.results-area {
+  min-height: 200px;
+}
+
 .offers-grid {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .offer-card {
   background: var(--card-bg);
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border: 1px solid transparent;
+  border: 1px solid var(--border-color);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .offer-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  border-color: rgba(242, 97, 38, 0.3);
-}
-
-.offer-icon-wrapper {
-  width: 80px;
-  height: 80px;
-  background-color: #fff5f2;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.offer-icon {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-}
-
-.offer-content {
-  flex: 1;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
 }
 
 .offer-category {
@@ -165,41 +120,46 @@ button:disabled {
 }
 
 .cta-button {
-  background-color: transparent;
-  color: var(--primary-color);
-  border: 2px solid var(--primary-color);
-  padding: 0.5rem 1.5rem;
-  height: auto;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
 }
 
 .cta-button:hover {
-  background-color: var(--primary-color);
-  color: white;
+  background-color: var(--primary-hover);
 }
 
 .error-message {
-  color: #e74c3c;
-  background: #fde8e7;
+  color: #c0392b;
+  background: #fbeae5;
   padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
-.empty-state {
+.empty-state,
+.loading-state {
   text-align: center;
   color: #95a5a6;
-  margin-top: 3rem;
+  padding-top: 3rem;
   font-style: italic;
 }
 
 .fade-in {
-  animation: fadeIn 0.5s ease-out;
+  animation: fadeIn 0.4s ease-out;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;

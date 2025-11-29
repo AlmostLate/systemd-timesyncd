@@ -13,6 +13,7 @@ folder_id = os.environ["folder_id"]
 api_key = os.environ["api_key"]
 
 model = f"gpt://{folder_id}/qwen3-235b-a22b-fp8/latest"
+# model = f"gpt://{folder_id}/yandexgpt-lite"
 client = OpenAI(
     base_url="https://rest-assistant.api.cloud.yandex.net/v1",
     api_key=api_key,
@@ -250,14 +251,13 @@ def generate_llm_prompt_v2(row):
 - Расходы по брендам:
   - Топ-5 брендов по сумме движения средств: {top_brands_text}.
 
-
 Ниже приведен список доступных банковских продуктов с их описаниями.
 ---
 СПИСОК ПРОДУКТОВ:
 {all_products_text}
 ---
 
-На основе представленного профиля клиента и детального описания продуктов, определи, какие 2 продукта из списка выше наиболее релевантны для этого клиента в ближайшем будущем.
+На основе представленного профиля клиента и детального описания продуктов, определи, какие топ 30-60 продукта из списка выше наиболее релевантны для этого клиента в ближайшем будущем.
 
 Твоя задача — дать максимально точную рекомендацию, основанную на паттернах поведения и потенциальных потребностях. В ответе верни `product_name` рекомендованных продуктов.
 Ответь строго в формате JSON, содержащем массив строк с названиями (`product_name`) рекомендованных продуктов. Если ты не можешь дать рекомендацию или не видишь подходящих продуктов, верни пустой массив.
@@ -266,6 +266,8 @@ def generate_llm_prompt_v2(row):
 {{
   "recommended_products": ["Кредитная карта", "Вклад"]
 }}
+
+топ 30-60 продукта на основе представленного профиля клиента.
 """
     return prompt
 
@@ -317,9 +319,7 @@ async def get_llm_recommendation(user_id, prompt):
         raw_output = response.output_text
 
         # Попытка извлечь JSON из текста, если модель не возвращает строго JSON
-        json_match = re.search(
-            r"```json\n(\{.*?\})\n```", raw_output, re.DOTALL
-        )
+        json_match = re.search(r"```\n(\{.*?\})\n```", raw_output, re.DOTALL)
         if json_match:
             json_str = json_match.group(1)
         else:

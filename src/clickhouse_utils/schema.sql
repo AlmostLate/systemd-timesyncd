@@ -59,3 +59,11 @@ CREATE TABLE IF NOT EXISTS receipts (
 ) ENGINE = MergeTree()
 PARTITION BY toYYYYMM(toDateTime(timestamp / 1000000))
 ORDER BY (user_id, timestamp);
+
+CREATE TABLE IF NOT EXISTS recommendations (
+    user_id UInt64,
+    offer_id UInt64,
+    score Float32,
+    created_at DateTime DEFAULT now()
+) ENGINE = MergeTree()
+ORDER BY (user_id, created_at);

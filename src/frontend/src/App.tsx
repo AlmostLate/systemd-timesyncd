@@ -1,85 +1,99 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { Api, type BannerOffer } from "./Api";
 
-// Initialize API client (point to your backend URL)
-const api = new Api({ baseUrl: "http://127.0.0.1:6770" });
+const KIOSK_UIDS = window.config.KIOSK_UIDS;
+const API_BASE_URL = window.config.API_BASE_URL;
+
+const api = new Api({ baseUrl: API_BASE_URL });
 
 function App() {
-  const [userId, setUserId] = useState<string>("85686259");
+  const [selectedUserId, setSelectedUserId] = useState<string>(KIOSK_UIDS[0]);
   const [offers, setOffers] = useState<BannerOffer[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSearch = async () => {
-    setLoading(true);
-    setError(null);
-    setOffers([]);
-
-    try {
-      const response = await api.api.getRecommendations({
-        user_id: userId,
-        limit: 2,
-      });
-      setOffers(response.data.offers);
-    } catch (err) {
-      console.error(err);
-      setError(
-        "Failed to load recommendations. Please check the backend connection."
-      );
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if (!selectedUserId) {
+      setOffers([]);
+      return;
     }
-  };
+
+    const fetchRecommendations = async () => {
+      setLoading(true);
+      setError(null);
+      setOffers([]);
+
+      try {
+        const response = await api.api.getRecommendations({
+          user_id: selectedUserId,
+          limit: 3,
+        });
+        setOffers(response.data.offers);
+      } catch (err) {
+        console.error(err);
+        setError(
+          "Failed to load recommendations. Please check the backend connection."
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecommendations();
+  }, [selectedUserId]);
 
   return (
     <div className="app-container">
+      <div className="header">
+        <h1>Next Best Offer</h1>
+      </div>
+
       <div className="control-panel">
         <div className="input-group">
-          <label htmlFor="userId">User ID</label>
-          <input
-            id="userId"
-            type="text"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
-            placeholder="Enter User ID (e.g., 85686259)"
-          />
+          <label htmlFor="user-select">Select User</label>
+          <select
+            id="user-select"
+            value={selectedUserId}
+            onChange={(e) => setSelectedUserId(e.target.value)}
+            disabled={KIOSK_UIDS.length === 0}
+          >
+            {KIOSK_UIDS.map((uid) => (
+              <option key={uid} value={uid}>
+                {uid}
+              </option>
+            ))}
+          </select>
         </div>
-        <button onClick={handleSearch} disabled={loading || !userId}>
-          {loading ? "Calculating..." : "Get Offers"}
-        </button>
       </div>
 
       {error && <div className="error-message">{error}</div>}
 
       <div className="results-area">
-        {offers.length > 0 && <h2>Personalized Recommendations</h2>}
+        {loading && <div className="loading-state">Calculating...</div>}
 
-        <div className="offers-grid">
-          {offers.map((offer) => (
-            <div key={offer.product_id} className="offer-card fade-in">
-              <div className="offer-icon-wrapper">
-                <img
-                  src={offer.icon_url}
-                  alt={offer.category}
-                  className="offer-icon"
-                />
+        {!loading && !error && offers.length > 0 && (
+          <div className="offers-grid">
+            {offers.map((offer) => (
+              <div key={offer.product_id} className="offer-card fade-in">
+                <div className="offer-content">
+                  <span className="offer-category">
+                    {offer.category.toUpperCase()}
+                  </span>
+                  <h3>{offer.title}</h3>
+                  <p>{offer.description}</p>
+                  <button className="cta-button">Оформить</button>
+                </div>
               </div>
-              <div className="offer-content">
-                <span className="offer-category">
-                  {offer.category.toUpperCase()}
-                </span>
-                <h3>{offer.title}</h3>
-                <p>{offer.description}</p>
-                <button className="cta-button">Оформить</button>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
-        {!loading && offers.length === 0 && !error && (
+        {!loading && !error && offers.length === 0 && (
           <div className="empty-state">
-            Enter a User ID to see predicted Next Best Offers.
+            {selectedUserId
+              ? "No recommendations available for this user."
+              : "Please select a user to see recommendations."}
           </div>
         )}
       </div>

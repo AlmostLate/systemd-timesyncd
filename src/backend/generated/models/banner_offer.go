@@ -8,10 +8,8 @@ package models
 import (
 	"context"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // BannerOffer banner offer
@@ -27,11 +25,6 @@ type BannerOffer struct {
 	// Example: До 10% на все категории в первый месяц.
 	Description string `json:"description"`
 
-	// URL to the product icon or banner image asset.
-	// Example: https://assets.example.com/icons/credit_card_v2.png
-	// Format: uri
-	IconURL strfmt.URI `json:"icon_url"`
-
 	// Internal technical ID of the product (for tracking clicks).
 	// Example: card_premium_123
 	ProductID string `json:"product_id"`
@@ -43,27 +36,6 @@ type BannerOffer struct {
 
 // Validate validates this banner offer
 func (m *BannerOffer) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateIconURL(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *BannerOffer) validateIconURL(formats strfmt.Registry) error {
-	if swag.IsZero(m.IconURL) { // not required
-		return nil
-	}
-
-	if err := validate.FormatOf("icon_url", "body", "uri", m.IconURL.String(), formats); err != nil {
-		return err
-	}
-
 	return nil
 }
 
