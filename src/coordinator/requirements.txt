@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+clickhouse-connect
+pydantic
+heapq
+faiss-cpu

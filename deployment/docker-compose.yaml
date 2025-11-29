@@ -50,9 +50,6 @@ services:
     container_name: psb_backend
     networks:
       - psb-net
-    depends_on:
-      - clickhouse
-      - coordinator
     environment:
       - CORS_ALLOWED_ORIGINS=${BACKEND_CORS_ORIGIN}
     labels:
@@ -93,24 +90,12 @@ services:
     networks:
       - psb-net
     restart: unless-stopped
-    healthcheck:
-      test:
-        [
-          "CMD",
-          "wget",
-          "--no-verbose",
-          "--tries=1",
-          "--spider",
-          "http://localhost:8123/ping",
-        ]
-      interval: 5s
-      timeout: 5s
-      retries: 5
 
   # --- ORCHESTRATION ---
   coordinator:
     build:
       context: ../src/coordinator
+      dockerfile: Dockerfile
     container_name: psb_coordinator
     environment:
       - CH_HOST=clickhouse
@@ -118,15 +103,13 @@ services:
       - BATCH_SIZE=5000
     networks:
       - psb-net
-    depends_on:
-      clickhouse:
-        condition: service_healthy
     restart: always
 
   # --- OFFER WORKERS ---
   worker:
     build:
-      context: ./services/worker
+      context: ../src/offerworker
+      dockerfile: Dockerfile
     deploy:
       mode: replicated
       replicas: 4
@@ -143,11 +126,6 @@ services:
       - ./services/worker/index.faiss:/app/index.faiss:ro
     networks:
       - psb-net
-    depends_on:
-      coordinator:
-        condition: service_started
-      clickhouse:
-        condition: service_healthy
     restart: on-failure
 
 # --- NETWORKING ---
