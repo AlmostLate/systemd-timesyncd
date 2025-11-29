@@ -4,7 +4,21 @@ import logging
 import requests
 from typing import List, Tuple, Protocol, Dict, Any
 import clickhouse_connect
-from lib.score import User, UsedOffer
+from lib.score import User, UsedOffer, calculate_score_for_user
+from lib.normalized_faiss import NormalizedFAISS
+from synth_generation import RecommendationGenerator, Product
+
+from dataclasses import dataclass
+
+@dataclass
+class PromptInfo:
+    user_id: int
+    socdem_cluster: float
+    region: float
+    total_spent: float
+    categories: list
+    subcategories: list
+
 
 # --- CONFIGURATION ---
 COORDINATOR_URL = os.getenv("COORDINATOR_URL", "http://coordinator:8000")
@@ -40,17 +54,21 @@ class InferenceModel(Protocol):
         """
         ...
 
-RECENT_TIMESTAMP = 123
 class HistoricalModel:
     """
     Protocol defining how the worker interacts with the ML library.
     Implement this interface in your actual library later.
     """
-    def __init__(self, ch_client):
-        pass
+    def __init__(self):
+        self.ch_client = None
     def load_resources(self) -> None:
         """Load FAISS indices, models, etc."""
-        ...
+        self.generator = RecommendationGenerator(
+            products_file="products.csv",
+            translation_cache_file="translation_cache.json",
+            recommendations_cache_file="llm_recommendations_cache.json"
+        )
+        self.offers_space_dim = len(self.generator.products_by_name)
 
     def process_batch(
         self, user_rows: List[Tuple]
@@ -60,14 +78,13 @@ class HistoricalModel:
         Output: List of tuples (user_id, offer_id, score).
         """
         """Establish ClickHouse connection with retry logic."""
-        ch_client = None
-        while not ch_client:
+        while not self.ch_client:
             try:
-                ch_client = clickhouse_connect.get_client(
-                    host=CH_HOST, port=CH_PORT
+                self.ch_client = clickhouse_connect.get_client(
+                    host=CH_HOST, port=CH_PORT, username='', password=''
                 )
                 # Verify connection
-                ch_client.query("SELECT 1")
+                self.ch_client.query("SELECT 1")
                 logger.info(f"Connected to ClickHouse at {CH_HOST}:{CH_PORT}")
             except Exception as e:
                 logger.error(
@@ -75,23 +92,150 @@ class HistoricalModel:
                 )
                 time.sleep(RETRY_DELAY)
         
-        # WHERE timestamp >= {RECENT_TIMESTAMP} - 30 * 24 * 3600 * 1000000 and timestamp <= {RECENT_TIMESTAMP}
+        user_row = user_rows[0]
+        user = User(int(user_row[0]), float(user_row[1]),  float(user_row[2]), [])
+
+        prompt_infos: list[PromptInfo] = []
+        prompt_info = self.get_prompt_info_for_user(user.uid)
+        prompt_infos.append(prompt_info)
         query = f"""  
-        SELECT user_id, socdem_cluster, region
-        FROM users AS u
-        INNER JOIN (SELECT user_id, count() as cnt
-            FROM payments
-            GROUP BY user_id
-            HAVING cnt > 15 -- Высокоактивные пользователи
+        SELECT user_id, count() as cnt
+        FROM payments
+        GROUP BY user_id
+        HAVING cnt > 15 -- Высокоактивные пользователи
         ORDER BY 2 desc
-        LIMIT 500) AS active_user ON u.user_id = active_user.user_id 
+        LIMIT 500
         """
         active_users_rows = self.ch_client.query(query).result_rows
         for active_user_row in active_users_rows:
-            lead_user_id = User(int(active_user_row[0]), float(active_user_row[1]), float(active_user_row[2]), [])
+            lead_user_uid = active_user_row[0]
+            prompt_info = self.get_prompt_info_for_user(lead_user_uid)
+            prompt_infos.append(prompt_info)
         
-        for user_row in user_rows:
-            user = User(int(user_row[0]), float(user_row[1]),  float(user_row[2]), [])
+        recommendations = self.generator.generate_recommendations(
+            users_data=prompt_infos,
+            delay_between_requests=0.5,
+            save_cache_every=10
+        )
+
+        rec_dict: Dict[int, list[Product]] = dict()
+        for rec in recommendations:
+            if rec.error is not None:
+                continue
+            rec_dict[rec.user_id] = rec.recommended_products
+        
+
+        query = f"""
+        SELECT max(timestamp) - 30 * 24 * 3600 * 1000000 as ts_cutoff, max(timestamp) as ts_last
+        FROM receipts
+        WHERE user_id = {user.uid}
+        """
+        ts_window_row = self.ch_client.query(query).result_rows[0]
+        min_ts, max_ts = ts_window_row[0], ts_window_row[1]
+        window_time = max_ts - min_ts
+        users: list[User] = []
+        for pi in prompt_infos:
+            if pi.user_id not in rec_dict:
+                continue
+            recs = rec_dict[pi.user_id]
+
+            used_offers: list[UsedOffer] = []
+            time_segments = 0
+            total_time_segments = len(recs)
+
+            for rec in recs:
+                used_offers.append(
+                    UsedOffer(
+                        rec.product_id,
+                        1 + min_ts + int(window_time*(time_segments / total_time_segments))
+                    )
+                )
+                time_segments += 1
+            users.append(User(
+                pi.user_id,
+                pi.socdem_cluster,
+                pi.region,
+                used_offers,
+            ))
+    
+        norm_faiss = NormalizedFAISS(self.offers_space_dim)
+        records: Dict[int, List[int]] = []
+
+        users_dict: Dict[int, User] = dict()
+        for user in users:
+            records[user.uid] = [uo.offer_id for uo in user.used_offers]
+            users_dict[user.uid] = user
+
+        norm_faiss.build(records)
+
+        inclusions = norm_faiss.find_top_inclusions(0, 25, 200) # list of offerd_ids
+
+        top_lead_users = []
+        for inclusion in inclusions:
+            lead_user_id = inclusion[0]
+            if lead_user_id == user.uid:
+                continue
+            lead_user = users_dict[0]
+            top_lead_users.append(lead_user)
+        
+        offers = calculate_score_for_user(user, top_lead_users)
+        result = []
+        for offer in offers:
+            result.append((user.uid, offer.offer_id, offer.score))
+
+        return result
+        
+
+
+    
+    def get_prompt_info_for_user(self, uid: int) -> PromptInfo:
+        query = f"""
+        WITH 
+            cutoff_ts AS (
+                SELECT max(timestamp) - 30 * 24 * 3600 * 1000000 as ts_cutoff
+                FROM receipts
+                WHERE user_id = {uid}
+            ),
+            payments_agg AS (
+                SELECT 
+                    user_id,
+                    sum(price) AS total_spent_month,
+                    count(*) AS transactions_count_month,
+                    groupArray((brand_id, price)) AS brand_spendings
+                FROM payments
+                WHERE user_id = {uid} 
+                AND timestamp >= (SELECT ts_cutoff FROM cutoff_ts)
+                GROUP BY user_id
+            ),
+            receipts_agg AS (
+                SELECT 
+                    r.user_id,
+                    groupArray(i.category) AS categories_list,
+                    groupArray(i.subcategory) AS subcategories_list
+                FROM receipts r
+                LEFT JOIN items i ON r.approximate_item_id = i.item_id
+                WHERE r.user_id = {uid} 
+                AND r.timestamp >= (SELECT ts_cutoff FROM cutoff_ts)
+                GROUP BY r.user_id
+            )
+        SELECT 
+            u.user_id,
+            u.socdem_cluster,
+            u.region,
+            COALESCE(p.total_spent_month, 0),
+            COALESCE(p.transactions_count_month, 0),--    p.brand_spendings,
+            r.categories_list,
+            r.subcategories_list
+        FROM users u
+        LEFT JOIN payments_agg p ON u.user_id = p.user_id
+        LEFT JOIN receipts_agg r ON u.user_id = r.user_id
+        WHERE u.user_id = {uid};
+        """
+        user_info_row = self.ch_client.query(query).result_rows[0]
+        return PromptInfo(user_info_row[0], user_info_row[1], user_info_row[2], user_info_row[3], user_info_row[5], user_info_row[6])
+
+        
+
 
 class MockMLService:
     def __init__(self):
@@ -251,7 +395,7 @@ class BatchWorker:
 
 
 if __name__ == "__main__":
-    ml_service = MockMLService()
+    historical_service = HistoricalModel()
 
-    worker = BatchWorker(ml_service)
+    worker = BatchWorker(historical_service)
     worker.run()
