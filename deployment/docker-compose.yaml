@@ -111,6 +111,7 @@ services:
   coordinator:
     build:
       context: ../src/coordinator
+      dockerfile: Dockerfile
     container_name: psb_coordinator
     environment:
       - CH_HOST=clickhouse
@@ -127,6 +128,7 @@ services:
   worker:
     build:
       context: ../src/offerworker
+      dockerfile: Dockerfile
     deploy:
       mode: replicated
       replicas: 4
